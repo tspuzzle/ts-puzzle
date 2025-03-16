@@ -1,4 +1,5 @@
 Run local DB with Docker:
+
 ```
 docker run --name ts-puzzle \
   -e POSTGRES_DB=ts-puzzle \
