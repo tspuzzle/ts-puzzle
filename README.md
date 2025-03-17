@@ -1,3 +1,4 @@
+# How to run
 Run local DB with Docker:
 ```
 docker run --name ts-puzzle \
