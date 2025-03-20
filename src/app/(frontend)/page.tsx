@@ -1,11 +1,16 @@
 import { headers as getHeaders } from 'next/headers.js'
-import Image from 'next/image'
 import { getPayload } from 'payload'
-import React from 'react'
-import { fileURLToPath } from 'url'
+import { LoginButton } from '@/components/auth/login-button'
 
+import { Button } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
 import config from '@/payload.config'
-import './styles.css'
+import { Poppins } from 'next/font/google'
+
+const font = Poppins({
+  subsets: ['latin'],
+  weight: ['600'],
+})
 
 export default async function HomePage() {
   const headers = await getHeaders()
@@ -13,46 +18,18 @@ export default async function HomePage() {
   const payload = await getPayload({ config: payloadConfig })
   const { user } = await payload.auth({ headers })
 
-  const fileURL = `vscode://file/${fileURLToPath(import.meta.url)}`
-
   return (
-    <div className="home">
-      <div className="content">
-        <picture>
-          <source srcSet="https://raw.githubusercontent.com/payloadcms/payload/main/packages/ui/src/assets/payload-favicon.svg" />
-          <Image
-            alt="Payload Logo"
-            height={65}
-            src="https://raw.githubusercontent.com/payloadcms/payload/main/packages/ui/src/assets/payload-favicon.svg"
-            width={65}
-          />
-        </picture>
-        {!user && <h1>Welcome to your new project.</h1>}
-        {user && <h1>Welcome back, {user.email}</h1>}
-        <div className="links">
-          <a
-            className="admin"
-            href={payloadConfig.routes.admin}
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Go to admin panel
-          </a>
-          <a
-            className="docs"
-            href="https://payloadcms.com/docs"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Documentation
-          </a>
-        </div>
-      </div>
-      <div className="footer">
-        <p>Update this page by editing</p>
-        <a className="codeLink" href={fileURL}>
-          <code>app/(frontend)/page.tsx</code>
-        </a>
+    <div className="flex h-full bg-gradient-to-r from-sky-400 to-blue-800 items-center justify-center">
+      <div className="space-y-4 text-center">
+        <h1 className={cn('text-6xl font-semibold text-white drop-shadow-md', font.className)}>
+          Auth
+        </h1>
+        <p className="text-white text-lg">Simple authentication center</p>
+        <LoginButton>
+          <Button variant="secondary" size="lg">
+            Sign In
+          </Button>
+        </LoginButton>
       </div>
     </div>
   )
