@@ -31,7 +31,7 @@ const payloadConfig = buildConfig({
   },
   db: postgresAdapter({
     pool: {
-      connectionString: process.env.POSTGRES_URL_NON_POOLING?.split('?')[0],
+      connectionString: process.env.POSTGRES_URL,
     },
   }),
   sharp,
